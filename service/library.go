@@ -43,11 +43,6 @@ func (l *Library) Borrow(ctx context.Context, r model.Record) error {
 }
 func (l *Library) Return(ctx context.Context, id string, now time.Time) (fine int64, err error) {
 	r, e := l.Store.GetRecord(id)
-	defer func() {
-		if e == nil && r.Status == "returned" {
-			fine = 0
-		}
-	}()
 	if e != nil {
 		return 0, e
 	}
